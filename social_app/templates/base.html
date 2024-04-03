@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% comment %} I wrote this code {% endcomment %}
+    <title>Social Network</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+</head>
+<body class="min-vh-100">
+    {% if user.is_authenticated %}
+        {% include 'header_authenticated.html' %}
+    {% else %}
+        {% include 'header_default.html' %}
+    {% endif %}
+
+    <main style="min-height: 96vh; background-image: url('{% static "app_images/background.jpg" %}');">
+        <div class="overlay"></div>
+        <div class="container pt-5 pb-5">
+            {% if messages %}
+                <ul class="messages bg-body-secondary p-3 mb-3 rounded">
+                    {% for message in messages %}
+                    {% with tag_class=message.tags|default:'' %}
+                    <li class="d-block 
+                                {% if tag_class == 'success' %}text-success
+                                {% elif tag_class == 'warning' %}text-warning
+                                {% elif tag_class == 'error' %}text-danger
+                                {% elif tag_class == 'info' %}text-primary
+                                {% elif tag_class == 'debug' %}text-dark
+                                {% endif %}">
+                        {{ message }}
+                    </li>
+                    {% endwith %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% block content %}
+            <!-- Content from child templates -->
+            {% endblock %}
+        </div>
+    </main>
+
+    {% include 'footer.html' %}
+</body>
+</html>
+
+{% comment %} end of code I wrote {% endcomment %}

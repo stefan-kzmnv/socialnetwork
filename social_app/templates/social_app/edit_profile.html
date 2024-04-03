@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% comment %} I wrote this code {% endcomment %}
+
+{% block content %}
+<div class="w-50 bg-body-secondary p-3 rounded-3">
+    <h2 class="pb-3">Edit Profile</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% comment %} {{ form.as_p }} {% endcomment %}
+        <div class="input-group mb-2">
+            <label class="input-group-text" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+            {{ form.first_name }}
+            {% if form.first_name.errors %}
+                <div class="alert alert-danger d-flex m-0 px-2 py-0 align-items-center">
+                    {{ form.first_name.errors|join:", " }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="input-group mb-2">
+            <label class="input-group-text" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+            {{ form.last_name }}
+            {% if form.last_name.errors %}
+                <div class="alert alert-danger d-flex m-0 px-2 py-0 align-items-center">
+                    {{ form.last_name.errors|join:", " }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="input-group mb-5">
+            <label class="input-group-text" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+            {{ form.password }}
+            {% if form.password.errors %}
+                <div class="alert alert-danger d-flex m-0 px-2 py-0 align-items-center">
+                    {{ form.password.errors|join:", " }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="input-group mb-2">
+            <label class="input-group-text" for="{{ form.avatar.id_for_label }}">New {{ form.avatar.label }}</label>
+            {{ form.avatar }}
+            {% if form.avatar.errors %}
+                <div class="alert alert-danger d-flex m-0 px-2 py-0 align-items-center">
+                    {{ form.avatar.errors|join:", " }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="input-group mb-2">
+            <label class="input-group-text" for="{{ form.workplace.id_for_label }}">{{ form.workplace.label }}</label>
+            {{ form.workplace }}
+            {% if form.workplace.errors %}
+                <div class="alert alert-danger d-flex m-0 px-2 py-0 align-items-center">
+                    {{ form.workplace.errors|join:", " }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="input-group mb-2">
+            <label class="input-group-text" for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+            {{ form.city }}
+            {% if form.city.errors %}
+                <div class="alert alert-danger d-flex m-0 px-2 py-0 align-items-center">
+                    {{ form.city.errors|join:", " }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="input-group mb-2">
+            <label class="input-group-text" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
+            {{ form.country }}
+            {% if form.country.errors %}
+                <div class="alert alert-danger d-flex m-0 px-2 py-0 align-items-center">
+                    {{ form.country.errors|join:", " }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="input-group mb-2">
+            <label class="input-group-text" for="{{ form.birthday.id_for_label }}">{{ form.birthday.label }}</label>
+            {{ form.birthday }}
+            {% if form.birthday.errors %}
+                <div class="alert alert-danger d-flex m-0 px-2 py-0 align-items-center">
+                    {{ form.birthday.errors|join:", " }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="input-group mb-2">
+            <label class="input-group-text" for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
+            {{ form.gender }}
+            {% if form.gender.errors %}
+                <div class="alert alert-danger d-flex m-0 px-2 py-0 align-items-center">
+                    {{ form.gender.errors|join:", " }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="input-group mb-2">
+            <label class="input-group-text" for="{{ form.relationship_status.id_for_label }}">{{ form.relationship_status.label }}</label>
+            {{ form.relationship_status }}
+            {% if form.relationship_status.errors %}
+                <div class="alert alert-danger d-flex m-0 px-2 py-0 align-items-center">
+                    {{ form.relationship_status.errors|join:", " }}
+                </div>
+            {% endif %}
+        </div>
+        <input class="btn btn-primary mt-3 shadow-sm" type="submit" value="Save Changes">
+    </form>
+</div>
+{% endblock %}
+
+{% comment %} end of code I wrote {% endcomment %}

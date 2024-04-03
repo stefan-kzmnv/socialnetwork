@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% comment %} I wrote this code {% endcomment %}
+
+{% block content %}
+    <ul class="w-75 m-auto">
+        {% for user_result in results %}
+            <li class="row bg-body-secondary p-3 mb-3 rounded">
+                <div class="col-2 d-flex align-items-center">
+                    <a class="rounded-3 overflow-hidden" href="{% url 'profile' user_result %}">
+                        {% if user_result.profile.avatar %}
+                            <img src="{{ user_result.profile.avatar.url }}" alt="{{ user_result }}'s avatar" class="avatar-thumbnail" width="100%">
+                        {% else %}
+                            <img src="/media/avatars/avatar_placeholder.webp" alt="Placeholder avatar" class="avatar-thumbnail" width="100%">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="col-10 d-flex justify-content-between align-items-center">
+                    <div>
+                        <a class="fs-6 text-dark text-decoration-none " href="{% url 'profile' user_result %}">{{ user_result }}</a>
+                    </div>
+                    <div class="d-flex">
+                        {% if user == user_result %}
+                            <button class="btn btn-primary disabled">Your profile</button>
+                        {% elif user_result.profile in friends %}
+                            <a class="btn btn-primary text-decoration-none" href="{% url 'start_chat' user_result.profile.id %}">Chat</a>
+                            <form class="ms-3" method="post" action="{% url 'unfriend' user_result.id %}">
+                                {% csrf_token %}
+                                <button class="btn btn-danger" type="submit">Unfriend</button>
+                            </form>
+                        {% else %}
+                            <form class="ms-3" method="post" action="{% url 'send_friend_request' user_result.id %}">
+                                {% csrf_token %}
+                                <button class="btn btn-primary" type="submit">Send friend request</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% comment %} end of code I wrote {% endcomment %}

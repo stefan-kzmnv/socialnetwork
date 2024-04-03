@@ -1,0 +1,73 @@
+/* I wrote this code */
+
+.site-header-default .user-section {
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+main {
+    position: relative;
+    background-position: top;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-color: #16160c;
+}
+
+.overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+.all-friends-container .friend-avatar-link {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.all-friends-container .friend-avatar-link img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.like-form {
+    width: 15%;
+}
+
+.comment-form {
+    width: 85%;
+}
+
+.comment-form textarea {
+    height: 40px;
+}
+
+.profile-identity {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.profile-identity h3 {
+    margin-left: 10px;
+}
+
+.profile-picture {
+    display: inline-block;
+}
+
+.profile-details-inner p {
+    margin-bottom: 0.3rem;
+}
+
+/* end of code I wrote */

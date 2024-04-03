@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% comment %} I wrote this code {% endcomment %}
+
+{% block content %}
+    <div class="w-50 bg-body-secondary p-3 rounded-3 m-auto">
+        <h1>You are chatting with {{ friend_username }}</h1>
+        <textarea class="form-control bg-body-tertiary shadow-none" id="chat-log" rows="20" readonly  style="resize:none"></textarea>
+        <div class="input-group mt-2">
+            <input class="form-control shadow-none" id="chat-message-input" type="text"><br>
+            <input class="btn btn-primary" id="chat-message-submit" type="button" value="Send">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var roomId = "{{ room_id }}";
+            document.querySelector('#chat-log').value = '';
+            var socketProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            var chatSocket = new WebSocket(
+                socketProtocol + '//' + window.location.host + '/ws/chat/' + roomId + '/'
+            );
+
+            chatSocket.onmessage = function(e) {
+                var data = JSON.parse(e.data);
+                var ChatMessage = data['chat_message'];
+                var SenderUsername = data['username'];
+                var Timestamp = data['timestamp'];
+                document.querySelector('#chat-log').value += (Timestamp + " | " + SenderUsername + ": " + ChatMessage + '\n');
+            };
+
+            chatSocket.onclose = function(e) {
+                console.error('Chat socket closed unexpectedly');
+            };
+
+            document.querySelector('#chat-message-submit').onclick = function(e) {
+                sendMessage();
+            };
+        
+            // Listen for the Enter key press on the input field
+            document.querySelector('#chat-message-input').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {  // Check if Enter was pressed without holding Shift
+                    e.preventDefault();  // Prevent the default action (newline in the input field)
+                    sendMessage();
+                }
+            });
+        
+            function sendMessage() {
+                var ChatMessageInputDom = document.querySelector('#chat-message-input');
+                var ChatMessage = ChatMessageInputDom.value;
+                chatSocket.send(JSON.stringify({
+                    'chat_message': ChatMessage
+                }));
+                ChatMessageInputDom.value = '';
+            }
+        });
+    </script>
+{% endblock %}
+
+{% comment %} end of code I wrote {% endcomment %}

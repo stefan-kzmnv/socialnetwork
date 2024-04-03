@@ -1,0 +1,45 @@
+{% comment %} I wrote this code {% endcomment %}
+
+<header class="site-header">
+    <nav class="navbar navbar-expand-lg bg-body-secondary shadow-sm">
+        <div class="container">
+            <div class="user-section">
+                <a class="navbar-brand" href="{% url 'profile' user.username %}">
+                <!-- Check if the user has an avatar. If not, display the placeholder image. -->
+                {% if user.profile.avatar %}
+                    <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}'s avatar" class="avatar-thumbnail" width="40" height="40">
+                {% else %}
+                    <img src="/media/avatars/avatar_placeholder.webp" alt="Placeholder avatar" class="avatar-thumbnail" width="40" height="40">
+                {% endif %}
+                </a>
+                <span>Hello, {{ user.username }}</span>
+            </div>
+
+            <div class="search-section">
+                <form class="d-flex" role="search" method="get" action="{% url 'search_results' %}">
+                    <input class="form-control me-2" type="text" name="search_query" placeholder="Search for people..." aria-label="Search">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+            </div>
+
+            <div class="" id="navbarSupportedContent">
+                <!-- Links to Messages and Logout -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile' user.username %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'all_messages' %}">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button class="nav-link" type="submit">Logout</button>
+                    </form>
+                </li>
+            </div>
+        </div>
+    </nav>
+</header>
+
+{% comment %} end of code I wrote {% endcomment %}

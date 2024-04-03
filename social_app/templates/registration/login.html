@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% comment %} I wrote this code {% endcomment %}
+
+{% block content %}
+	<div class="d-flex justify-content-end align-items-end" style="padding: 150px 0 50px 0;">
+		<div class="bg-body-secondary p-3 rounded-3 shadow-sm">
+		<h2>Login</h2>
+		<form class="mt-5 mb-4" method="post">
+			{% csrf_token %}
+			<div class="input-group mb-2">
+				<label for="{{ form.username.id_for_label }}" class="input-group-text">{{ form.username.label }}</label>
+				{{ form.username }}
+				{% if form.username.errors %}
+					<div class="alert alert-danger d-flex m-0 px-2 py-0 align-items-center">
+						{{ form.username.errors|join:", " }}
+					</div>
+				{% endif %}
+			</div>
+			<div class="input-group">
+				<label for="{{ form.password.id_for_label }}" class="input-group-text">{{ form.password.label }}</label>
+				{{ form.password }}
+				{% if form.password.errors %}
+					<div class="alert alert-danger d-flex m-0 px-2 py-0 align-items-center">
+						{{ form.password.errors|join:", " }}
+					</div>
+				{% endif %}
+			</div>
+			<button class="btn btn-primary d-block w-25 mt-3" type="submit">Login</button>
+		</form>
+		<div class="">
+			<p class="m-0">Don't have an account? <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'register' %}">Register</a></p>
+		</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% comment %} end of code I wrote {% endcomment %}

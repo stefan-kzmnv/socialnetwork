@@ -1,0 +1,32 @@
+{% comment %} I wrote this code {% endcomment %}
+
+{% for request in pending_requests %}
+    <div>
+        <div class="row">
+            <div class="col-3">
+                {% if request.sender.avatar %}
+                    <img src="{{ request.sender.avatar.url }}" alt="{{ request.sender }}'s avatar" class="avatar-thumbnail" width="100%">
+                {% else %}
+                    <img src="/media/avatars/avatar_placeholder.webp" alt="Placeholder avatar" class="avatar-thumbnail" width="100%">
+                {% endif %}
+            </div>
+            <div class="col-9">
+                <div>
+                    <div><b>{{ request.sender.user.username }}</b> wants to be your friend.</div>
+                    <div class="d-flex mt-1">
+                        <form class="me-2" method="post" action="{% url 'accept_friend_request' request.id %}">
+                            {% csrf_token %}
+                            <button class="btn btn-primary" type="submit">Accept</button>
+                        </form>
+                        <form method="post" action="{% url 'decline_friend_request' request.id %}">
+                            {% csrf_token %}
+                            <button class="btn btn-danger" type="submit">Decline</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% comment %} end of code I wrote {% endcomment %}

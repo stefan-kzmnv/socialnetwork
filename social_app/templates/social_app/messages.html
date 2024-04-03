@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% comment %} I wrote this code {% endcomment %}
+
+{% block content %}
+<ul class="all-friends-container p-0 d-flex flex-wrap justify-content-center">
+    <div class="w-100 bg-body-secondary p-3 mb-3 rounded-3">
+        <h3 class="text-center">Here are the people you have chat history with</h3>
+    </div>
+    {% if friends_with_chat_history %}
+        {% for friend in friends_with_chat_history %}
+            <li class="row p-2 mb-3 mx-1 bg-body-secondary rounded-3" style="width: 46%;">
+                <div class="col-3 d-flex align-items-center">
+                    <a class="friend-avatar-link rounded-3 overflow-hidden" href="{% url 'profile' friend %}">
+                        {% if friend.avatar %}
+                            <img src="{{ friend.avatar.url }}" alt="{{ friend }}'s avatar" class="avatar-thumbnail" width="100%">
+                        {% else %}
+                            <img src="/media/avatars/avatar_placeholder.webp" alt="Placeholder avatar" class="avatar-thumbnail" width="100%">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="col-9 d-flex flex-wrap align-items-center">
+                    <div class="w-100 mb-2">
+                        <a class="d-inline-block fs-5 text-dark fw-bolder text-decoration-none" href="{% url 'profile' friend %}">{{ friend }}</a>
+                    </div>
+                    <a class="btn btn-primary text-decoration-none" href="{% url 'start_chat' friend.id %}">Continue chat</a>
+                </div>
+            </li>
+        {% endfor %}
+    {% else %}
+        <li class="d-inline-block w-100 mb-3 p-3 bg-body-secondary rounded-3">
+            <p class="text-center">You haven't started chatting with any friends yet.</p>
+        </li>
+    {% endif %}
+</ul>
+{% endblock %}
+
+{% comment %} end of code I wrote {% endcomment %}

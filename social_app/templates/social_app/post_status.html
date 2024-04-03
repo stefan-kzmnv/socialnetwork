@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% comment %} I wrote this code {% endcomment %}
+
+{% block content %}
+  <h2>Post Status</h2>
+  <form method="post" class="post-status-form">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.content.id_for_label }}">Content:</label>
+      {{ form.content }}
+    </div>
+    <button type="submit" class="btn btn-primary">Post</button>
+  </form>
+{% endblock %}
+
+{% comment %} end of code I wrote {% endcomment %}
